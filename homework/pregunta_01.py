@@ -31,20 +31,13 @@ def pregunta_01():
     # Normalize keywords: ensure single space between words, comma separated
     dataframe = dataframe.copy()
     dataframe['principales_palabras_clave'] = dataframe['principales_palabras_clave'].str.replace(r'\s+', ' ', regex=True).str.strip()
-    dataframe = dataframe.copy()
     columnas_fijas = ['cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave']
     dataframe[columnas_fijas] = dataframe[columnas_fijas].ffill()
-    dataframe = dataframe.copy()
     dataframe = dataframe.groupby(columnas_fijas, as_index=False).agg({'principales_palabras_clave':' '.join})
-    dataframe = dataframe.copy()
     dataframe['porcentaje_de_palabras_clave'] = dataframe['porcentaje_de_palabras_clave'].apply(lambda x: str(x).replace(' %',''))
-    dataframe = dataframe.copy()
     dataframe['porcentaje_de_palabras_clave'] = dataframe['porcentaje_de_palabras_clave'].apply(lambda x: float(str(x).replace(',','.')))
-    dataframe = dataframe.copy()
     dataframe['cluster'] = dataframe['cluster'].apply(lambda x: int(float((str(x)))))
-    dataframe = dataframe.copy()
     dataframe['cantidad_de_palabras_clave'] = dataframe['cantidad_de_palabras_clave'].apply(lambda x: int(float((str(x)))))
-    dataframe = dataframe.copy()
     dataframe['principales_palabras_clave'] = dataframe['principales_palabras_clave'].apply(lambda x: str(x).replace('.',''))
 
     return dataframe
